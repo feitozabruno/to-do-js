@@ -20,7 +20,7 @@
     </header>
 
     <div class="container">
-      <form>
+      <form id="taskForm">
         <input
           id="inputForm"
           type="text"
@@ -28,7 +28,7 @@
           value=""
           placeholder="Adicione uma nova tarefa"
         />
-        <button type="submit" disabled>
+        <button type="submit">
           Criar
           <img
             src="./assets/pluscircle.svg"
@@ -49,13 +49,13 @@
         </strong>
       </div>
 
-      <div class="empty-tasks">
+      <div class="empty-tasks" style="display: none">
         <img src="./assets/clipboard.svg" alt="ícone de uma prancheta" />
         <strong>Você ainda não tem tarefas cadastradas</strong>
         <p>Crie tarefas e organize seus itens a fazer</p>
       </div>
 
-      <ul class="task-list" style="display: none">
+      <ul class="task-list">
         <li>
           <button type="button">
             <img src="./assets/circle.svg" alt="ícone de um círculo" />
@@ -68,7 +68,7 @@
           </button>
         </li>
 
-        <li class="task-complete">
+        <!-- <li class="task-complete">
           <button type="button">
             <img src="./assets/checkedcircle.svg" alt="ícone de um círculo" />
           </button>
@@ -78,7 +78,7 @@
           <button type="button">
             <img src="./assets/trash.svg" alt="ícone de uma lixeira" />
           </button>
-        </li>
+        </li> -->
       </ul>
     </div>
     <script src="./js/main.js"></script>
