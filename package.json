@@ -1,0 +1,16 @@
+{
+  "name": "to-do",
+  "version": "1.0.0",
+  "description": "Projeto para aprender programação com JavaScript puro",
+  "main": "index.html",
+  "author": "feitozabruno",
+  "license": "MIT",
+  "scripts": {
+    "lint:check": "prettier --check .",
+    "lint:fix": "prettier --write ."
+  },
+  "devDependencies": {
+    "eslint": "^8.52.0",
+    "prettier": "^3.0.3"
+  }
+}
