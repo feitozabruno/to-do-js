@@ -1,5 +1,15 @@
-let userName = "Bruno";
+const tasks = [];
+const inputForm = document.getElementById("inputForm");
 
-if (!userName) {
-  console.log(userName);
-}
+console.log(typeof []);
+
+inputForm.addEventListener("input", () => {
+  tasks.push({
+    id: Date.now(),
+    name: inputForm.value,
+    complete: false,
+  });
+});
+
+// - [] Armazenar o valor digitado no formuário em um array de objetos.
+// - []
