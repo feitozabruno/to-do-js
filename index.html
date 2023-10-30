@@ -9,7 +9,7 @@
     />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Documento</title>
+    <title>To-Do</title>
     <link rel="stylesheet" href="./css/styles.css" />
     <link rel="shortcut icon" href="favicon.svg" type="image/x-svg" />
   </head>
@@ -22,13 +22,13 @@
     <div class="container">
       <form id="taskForm">
         <input
-          id="inputForm"
+          id="inputTask"
           type="text"
           name="task"
           value=""
           placeholder="Adicione uma nova tarefa"
         />
-        <button type="submit">
+        <button type="submit" disabled>
           Criar
           <img
             src="./assets/pluscircle.svg"
@@ -40,46 +40,22 @@
       <div class="summary">
         <strong>
           Tarefas criadas
-          <span>0</span>
+          <span id="countCreatedTasks">0</span>
         </strong>
 
         <strong>
           Tarefas concluídas
-          <span>0</span>
+          <span id="countCompletedTasks">0</span>
         </strong>
       </div>
 
-      <div class="empty-tasks" style="display: none">
+      <div class="empty-tasks">
         <img src="./assets/clipboard.svg" alt="ícone de uma prancheta" />
         <strong>Você ainda não tem tarefas cadastradas</strong>
         <p>Crie tarefas e organize seus itens a fazer</p>
       </div>
 
-      <ul class="task-list">
-        <li>
-          <button type="button">
-            <img src="./assets/circle.svg" alt="ícone de um círculo" />
-          </button>
-
-          <span>Estudar</span>
-
-          <button type="button">
-            <img src="./assets/trash.svg" alt="ícone de uma lixeira" />
-          </button>
-        </li>
-
-        <!-- <li class="task-complete">
-          <button type="button">
-            <img src="./assets/checkedcircle.svg" alt="ícone de um círculo" />
-          </button>
-
-          <span>Trabalhar</span>
-
-          <button type="button">
-            <img src="./assets/trash.svg" alt="ícone de uma lixeira" />
-          </button>
-        </li> -->
-      </ul>
+      <ul class="task-list"></ul>
     </div>
     <script src="./js/main.js"></script>
   </body>

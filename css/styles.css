@@ -86,6 +86,7 @@ form button[type=submit] {
 }
 form button[type=submit]:disabled {
   cursor: not-allowed;
+  opacity: 0.8;
 }
 form button[type=submit]:not(:disabled):hover {
   background: var(--blue);
@@ -110,6 +111,9 @@ form button[type=submit]:not(:disabled):hover {
 .empty-tasks strong,
 .empty-tasks p {
   color: var(--gray-300);
+}
+.empty-tasks.blank {
+  display: none;
 }
 
 .summary {
@@ -159,17 +163,8 @@ form button[type=submit]:not(:disabled):hover {
   height: 21px;
   margin-right: 1.2rem;
 }
-.task-list li button:nth-child(1) img {
-  fill: var(--blue);
-  stroke: var(--blue);
-  stroke-width: 5px;
-}
-.task-list li button:nth-child(1) img path:nth-child(1) {
-  opacity: 0;
-  transition: opacity 0.2s;
-}
-.task-list li button:nth-child(1) img path:nth-child(1):hover {
-  opacity: 0.2;
+.task-list li button:nth-child(1):disabled {
+  cursor: default;
 }
 .task-list li button:nth-child(3) {
   cursor: pointer;
@@ -181,31 +176,12 @@ form button[type=submit]:not(:disabled):hover {
 }
 .task-list li button:nth-child(3):hover {
   background: var(--gray-400);
-  color: var(--danger);
   border-radius: 4px;
 }
 .task-list li span {
   color: var(--gray-100);
   font-size: 1.4rem;
   width: calc(100% - 46px);
-}
-.task-list li.task-complete button:nth-child(1) img {
-  cursor: initial;
-  fill: var(--purple-dark);
-  stroke: var(--purple-dark);
-  /* &:hover {
-    fill: var(--purple);
-    stroke: var(--purple);
-
-    path:nth-child(1) {
-      fill: var(--purple);
-      opacity: 0.3;
-    }
-  } */
-}
-.task-list li.task-complete button:nth-child(1) img path:nth-child(1) {
-  fill: var(--purple-dark);
-  opacity: 0.2;
 }
 .task-list li.task-complete span {
   color: var(--gray-300);

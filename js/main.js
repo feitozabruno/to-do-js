@@ -1,62 +1,99 @@
+const inputTask = document.getElementById("inputTask");
 const taskForm = document.getElementById("taskForm");
-const inputForm = document.getElementById("inputForm");
-
+const submitBtn = document.querySelector("button[type='submit']");
 const tasks = [];
+
+inputTask.addEventListener("input", (event) => {
+  submitBtn.disabled = !event.target.value.trim().length > 0;
+});
 
 taskForm.addEventListener("submit", (event) => {
   event.preventDefault();
-  tasks.push({
-    id: Date.now().toString(),
-    name: inputForm.value,
-    complete: false,
-  });
+
+  const taskId = Date.now();
+  const taskName = inputTask.value.trim();
+  const taskCompleted = false;
+
+  if (inputTask.value.trim().length > 0) {
+    tasks.find((task) => task.name === taskName)
+      ? alert("Tarefa repetida!")
+      : handleCreateNewTask();
+  }
+
+  function handleCreateNewTask() {
+    tasks.push({ id: taskId, name: taskName, complete: taskCompleted });
+    createNewTask(taskName, taskId);
+    resetForm();
+  }
 });
 
-const showTasks = document.querySelector(".task-list");
+function createNewTask(task, id) {
+  const showTasks = document.querySelector(".task-list");
 
-const newTask = document.createElement("li");
-const checkIcon = document.createElement("img");
-const checkBtn = document.createElement("button");
-const taskName = document.createElement("span");
+  const newTask = `
+    <li id="${id}">
+      <button type="button"">
+        <img src="./assets/circle.svg" alt="ícone de um círculo">
+      </button>
 
-taskName.innerHTML = "Trabalhar";
+      <span>${task}</span>
 
-checkIcon.setAttribute("src", "./assets/circle.svg");
-checkIcon.setAttribute("alt", "ícone de um círculo");
+      <button type="button"">
+        <img src="./assets/trash.svg" alt="ícone de uma lixeira">
+      </button>
+    </li>
+  `;
 
-checkBtn.setAttribute("type", "button");
-checkBtn.appendChild(checkIcon);
+  showTasks.insertAdjacentHTML("beforeend", newTask);
 
-const deleteIcon = document.createElement("img");
-const deleteBtn = document.createElement("button");
+  const taskItem = document.getElementById(id);
+  taskItem.children[0].addEventListener("click", () => markTaskAsCompleted(id));
+  taskItem.children[2].addEventListener("click", () => deleteTask(id));
+}
 
-deleteIcon.setAttribute("src", "./assets/trash.svg");
-deleteIcon.setAttribute("alt", "ícone de uma lixeira");
+function markTaskAsCompleted(id) {
+  tasks.map((task) => {
+    task.id === id ? (task.complete = true) : "";
 
-deleteBtn.setAttribute("type", "button");
-deleteBtn.appendChild(deleteIcon);
+    const taskCompleted = document.getElementById(`${id}`);
 
-newTask.appendChild(checkBtn);
-newTask.appendChild(taskName);
-newTask.appendChild(deleteBtn);
+    if (task.complete) {
+      taskCompleted.classList.add("task-complete");
+      taskCompleted.children[0].children[0].src = "./assets/checkedcircle.svg";
+      taskCompleted.children[0].disabled = true;
+      counterTasks();
+    }
+  });
+}
 
-showTasks.appendChild(newTask);
+function deleteTask(id) {
+  const taskToDelete = document.getElementById(id);
+  taskToDelete.remove();
 
-/*
-<li>
-  <button type="button">
-    <img src="./assets/circle.svg" alt="ícone de um círculo" />
-  </button>
+  const taskIndiceInArray = tasks.findIndex((task) => task.id === id);
+  tasks.splice(taskIndiceInArray, 1);
 
-  <span>Estudar</span>
+  noTasks();
+  counterTasks();
+}
 
-  <button type="button">
-    <img src="./assets/trash.svg" alt="ícone de uma lixeira" />
-  </button>
-</li>
-*/
+function noTasks() {
+  const emptyList = document.querySelector(".empty-tasks");
+  emptyList.classList.toggle("blank", tasks.length > 0);
+}
 
-// tasks.map((task) => console.log(task.name));
-// - [x] Armazenar o valor digitado no formuário em um array de objetos.
-// - [x] Percorrer os objetos do array e exibir na tela.
-// - [ ] Exibir na tela as tarefas armazenadas no array.
+function counterTasks() {
+  const countCreatedTasks = document.getElementById("countCreatedTasks");
+  const countCompletedTasks = document.getElementById("countCompletedTasks");
+  const tasksCompleted = tasks.filter((task) => task.complete === true);
+
+  countCreatedTasks.innerHTML = tasks.length;
+  countCompletedTasks.innerHTML = tasksCompleted.length;
+}
+
+function resetForm() {
+  noTasks();
+  counterTasks();
+  submitBtn.disabled = true;
+  inputTask.value = "";
+}

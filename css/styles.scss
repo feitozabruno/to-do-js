@@ -88,6 +88,7 @@ form {
 
     &:disabled {
       cursor: not-allowed;
+      opacity: 0.8;
     }
 
     &:not(:disabled):hover {
@@ -117,6 +118,10 @@ form {
   strong,
   p {
     color: var(--gray-300);
+  }
+
+  &.blank {
+    display: none;
   }
 }
 
@@ -173,19 +178,8 @@ form {
       height: 21px;
       margin-right: 1.2rem;
 
-      img {
-        fill: var(--blue);
-        stroke: var(--blue);
-        stroke-width: 5px;
-
-        path:nth-child(1) {
-          opacity: 0;
-          transition: opacity 0.2s;
-
-          &:hover {
-            opacity: 0.2;
-          }
-        }
+      &:disabled {
+        cursor: default;
       }
     }
 
@@ -199,7 +193,6 @@ form {
 
       &:hover {
         background: var(--gray-400);
-        color: var(--danger);
         border-radius: 4px;
       }
     }
@@ -212,27 +205,6 @@ form {
   }
 
   li.task-complete {
-    button:nth-child(1) img {
-      cursor: initial;
-      fill: var(--purple-dark);
-      stroke: var(--purple-dark);
-
-      path:nth-child(1) {
-        fill: var(--purple-dark);
-        opacity: 0.2;
-      }
-
-      /* &:hover {
-        fill: var(--purple);
-        stroke: var(--purple);
-
-        path:nth-child(1) {
-          fill: var(--purple);
-          opacity: 0.3;
-        }
-      } */
-    }
-
     span {
       color: var(--gray-300);
       text-decoration: line-through;
