@@ -2,6 +2,30 @@ const inputTask = document.getElementById("inputTask");
 const taskForm = document.getElementById("taskForm");
 const submitBtn = document.querySelector("button[type='submit']");
 const tasks = [];
+const localStorageKey = "@to-do-js:tasks-1.0.0";
+
+function saveInLocalStorage() {
+  const stateJSON = JSON.stringify(tasks);
+  localStorage.setItem(localStorageKey, stateJSON);
+}
+
+function loadFromLocalStorage() {
+  const storedStateAsJSON = localStorage.getItem(localStorageKey);
+
+  if (storedStateAsJSON) {
+    const storedTasks = JSON.parse(storedStateAsJSON);
+    tasks.push(...storedTasks);
+
+    storedTasks.forEach((item) => {
+      createNewTask(item.name, item.id);
+      item.complete ? markTaskAsCompleted(item.id) : "";
+      noTasks();
+      counterTasks();
+    });
+  }
+}
+
+loadFromLocalStorage();
 
 inputTask.addEventListener("input", (event) => {
   submitBtn.disabled = !event.target.value.trim().length > 0;
@@ -25,6 +49,8 @@ taskForm.addEventListener("submit", (event) => {
     createNewTask(taskName, taskId);
     resetForm();
   }
+
+  saveInLocalStorage();
 });
 
 function createNewTask(task, id) {
@@ -49,6 +75,8 @@ function createNewTask(task, id) {
   const taskItem = document.getElementById(id);
   taskItem.children[0].addEventListener("click", () => markTaskAsCompleted(id));
   taskItem.children[2].addEventListener("click", () => deleteTask(id));
+
+  saveInLocalStorage();
 }
 
 function markTaskAsCompleted(id) {
@@ -64,17 +92,20 @@ function markTaskAsCompleted(id) {
       counterTasks();
     }
   });
+
+  saveInLocalStorage();
 }
 
 function deleteTask(id) {
   const taskToDelete = document.getElementById(id);
   taskToDelete.remove();
 
-  const taskIndiceInArray = tasks.findIndex((task) => task.id === id);
-  tasks.splice(taskIndiceInArray, 1);
+  const taskIndexInArray = tasks.findIndex((task) => task.id === id);
+  tasks.splice(taskIndexInArray, 1);
 
   noTasks();
   counterTasks();
+  saveInLocalStorage();
 }
 
 function noTasks() {
